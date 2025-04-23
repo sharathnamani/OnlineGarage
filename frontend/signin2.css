@@ -1,0 +1,103 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #2abfa1, #3498db);
+    background-image: url(https://imgs.search.brave.com/tS04k2ZS-y8A3g1MRy3hIQCKRL1L4QBnTs9VivoiyZs/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/d2FsbHBhcGVyc2Fm/YXJpLmNvbS8yNC8z/OC9UV1Z6aFouanBn);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.wrapper {
+    width: 400px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    color: rgb(253, 253, 253);
+    text-align: center;
+    border : 2px solid grey;
+}
+.wrapper h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+.wrapper label {
+    display: block;
+    margin-top: 10px;
+    text-align: left;
+    font-size: 14px;
+    font-style: sans-serif;
+}
+.wrapper input, .wrapper select {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 0.1px solid transparent;
+    border-radius: 5px;
+    background: rgba(231, 226, 226, 0.2);
+    color: rgb(253, 251, 251);
+    outline: none;
+    transition: border 0.1s ease;
+}
+
+.username:focus {
+    border: 2px solid rgb(138, 199, 255); /* Border turns grey when clicked (focused) */
+}
+
+.wrapper input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+.wrapper input[type="radio"] {
+    width: auto;
+    margin-right: 5px;
+}
+.radio-group label {
+    display: inline;
+    margin-right: 15px;
+}
+.wrapper input[type="file"] {
+    background: none;
+}
+.wrapper button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    background: #2ecc71;
+    color: rgb(250, 246, 246);
+    border : 1px solid transparent;
+    font-size: 16px;
+    cursor: pointer;
+    transition : border 0.7 ease;
+}
+.wrapper button:hover {
+    transition: 0.7s;
+    border: 2px solid rgb(226, 230, 233);
+    background: #27ae60;
+}
+#cart-footer {
+    margin-top: 20px;
+    border-top: 1px solid #ccc;
+    padding-top: 10px;
+    text-align: right;
+}
+
+#order-button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+}

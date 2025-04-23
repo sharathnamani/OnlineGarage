@@ -1,0 +1,81 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    text-align: center;
+}
+
+/* Feedback Form Container */
+.feedback-container {
+    width: 60%;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #fff;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+.feedback-container h2 {
+    margin-bottom: 30px;
+    color: #333;
+    font-size: 24px;
+}
+
+.stars {
+    font-size: 3em;
+    color: #ccc;
+    margin-bottom: 20px;
+}
+
+.star {
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.star.selected, .star:hover {
+    color: #FFD700; /* Gold on hover and when selected */
+}
+
+textarea {
+    width: 100%;
+    margin-top: 20px;
+    padding: 15px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    resize: vertical;
+    min-height: 120px;
+}
+
+button {
+    padding: 12px 30px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+    margin-top: 25px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#thank-you-message {
+    margin-top: 20px;
+    color: green;
+    font-size: 18px;
+}
+
+.hidden {
+    display: none;
+}

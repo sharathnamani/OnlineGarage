@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Auto Parts Store</title>
+    <link rel="stylesheet" href="professional.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Logo container outside header -->
+    <div class="logo-container">
+        <a href="professional.html">
+            <img src="images/garage.png" alt="Auto Parts Logo" class="logo" id="logo1">
+        </a>
+    </div>
+    
+    <header>
+        <div class="header-content">
+            <div class="header-top">
+                <h1>Auto Parts Pro</h1>
+            </div>
+            <div class="header-bottom">
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="professional.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="#"><i class="fas fa-tag"></i> Sell</a></li>
+                        <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                        <li><a href="#" id="cart-link"><i class="fas fa-shopping-cart"></i> Cart (0)</a></li>
+                        <li><a href="#"><i class="fas fa-user"></i> Login</a></li>
+                    </ul>
+                </nav>
+                <form class="search-bar" action="/search" method="get">
+                    <input type="text" name="query" placeholder="Search for parts..." required>
+                    <button type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </header>
+
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-content">
+            <span id="close-cart">&times;</span>
+            <h2>Your Cart</h2>
+            <ul id="cart-items"></ul>
+            <div id="cart-footer"></div>
+        </div>
+    </div>
+    
+    <div class="hero-section">
+        <div class="hero-content">
+            <h1>India's Most Trusted Auto Parts Marketplace</h1>
+            <p>Premium quality parts with expert installation guidance and nationwide delivery</p>
+            <div class="hero-buttons">
+                <a href="#featured" class="btn btn-primary">Shop Now</a>
+                <a href="#categories" class="btn btn-secondary">Browse Categories</a>
+            </div>
+        </div>
+    </div>
+
+    <section class="features">
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-truck-fast"></i>
+            </div>
+            <h3>Fast Delivery</h3>
+            <p>Nationwide shipping with tracking and insurance</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h3>Secure Payment</h3>
+            <p>Multiple payment options with secure encryption</p>
+        </div>
+        
+        <div class="feature-card">
+            <div class="feature-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <h3>Expert Support</h3>
+            <p>24/7 customer service with technical assistance</p>
+        </div>
+    </section>
+
+    <section id="categories" class="categories">
+        <h2 class="section-title">Vehicle Categories</h2>
+        <div class="category-grid">
+            <a href="#" class="category-card">
+                <div class="category-icon"><i class="fas fa-motorcycle"></i></div>
+                <h3>2 Wheeler</h3>
+                <p>Motorcycles & Scooters</p>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon"><i class="fas fa-truck"></i></div>
+                <h3>3 Wheeler</h3>
+                <p>Auto Rickshaws</p>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon"><i class="fas fa-car"></i></div>
+                <h3>4 Wheeler</h3>
+                <p>Cars & SUVs</p>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon"><i class="fas fa-truck-moving"></i></div>
+                <h3>6 Wheeler</h3>
+                <p>Light Commercial</p>
+            </a>
+            <a href="#" class="category-card">
+                <div class="category-icon"><i class="fas fa-truck-loading"></i></div>
+                <h3>8 Wheeler</h3>
+                <p>Heavy Commercial</p>
+            </a>
+        </div>
+    </section>
+
+    <section id="featured" class="featured-products">
+        <h2 class="section-title">Featured Products</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-badge">Best Seller</div>
+                <img src="https://images.meesho.com/images/products/399723719/wioiu_1200.jpg" alt="Mechanic Tool Set">
+                <div class="product-info">
+                    <h3>Professional 46-Piece Mechanic Tool Set</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                        <span>(128)</span>
+                    </div>
+                    <p class="product-price">₹470</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-badge">New</div>
+                <img src="https://m.media-amazon.com/images/I/712G-NSjdXL.jpg" alt="Impact Wrench">
+                <div class="product-info">
+                    <h3>Ingco Impact Wrench, 2300rpm</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(85)</span>
+                    </div>
+                    <p class="product-price">₹6,199</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://rukminim2.flixcart.com/image/612/612/xif0q/vehicle-tool-kit/q/o/r/2-38-2-ton-jack-scissor-lift-max-2-ton-load-capacity-with-jack-original-imah8ez9kruzzb5s.jpeg?q=70" alt="Jack Scissor Lift">
+                <div class="product-info">
+                    <h3>Kruvad 2 Ton Jack Scissor Lift</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <span>(42)</span>
+                    </div>
+                    <p class="product-price">₹1,318</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <img src="https://cdn.moglix.com/p/5b9K9nqBReLMh-large.jpg" alt="Tyre Inflator">
+                <div class="product-info">
+                    <h3>Windek 4001 Heavy Duty Tyre Inflator</h3>
+                    <div class="product-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                        <span>(67)</span>
+                    </div>
+                    <p class="product-price">₹2,117</p>
+                    <button class="add-to-cart">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2 class="section-title">What Our Customers Say</h2>
+        <div class="testimonial-slider">
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">"The quality of parts is exceptional and the delivery was faster than expected. Will definitely shop again!"</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer">
+                    <div>
+                        <h4>Rajesh Kumar</h4>
+                        <p>Delhi</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <p class="testimonial-text">"The customer service team helped me find the exact part I needed for my vintage motorcycle. Highly recommended!"</p>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer">
+                    <div>
+                        <h4>Priya Sharma</h4>
+                        <p>Mumbai</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="newsletter">
+        <div class="newsletter-content">
+            <h2>Stay Updated</h2>
+            <p>Subscribe to our newsletter for exclusive deals and new product alerts</p>
+            <form class="newsletter-form">
+                <input type="email" placeholder="Enter your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Refunds</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="professional.html">Home</a></li>
+                    <li><a href="#">Sell Products</a></li>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Feedback</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Auto Parts Pro. All rights reserved.</p>
+            <div class="payment-methods">
+                <i class="fab fa-cc-visa"></i>
+                <i class="fab fa-cc-mastercard"></i>
+                <i class="fab fa-cc-paypal"></i>
+                <i class="fab fa-cc-amex"></i>
+            </div>
+        </div>
+    </footer>
+
+    <script src="professional.js"></script>
+</body>
+</html> 

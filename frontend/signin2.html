@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>Sign Up - Online Garage</title>
+    <link rel="stylesheet" href="signin2.css">
+</head>
+<body>
+    <div class="wrapper">
+        <form id="signupForm">
+            <h1>Create an Account</h1>
+            <div class="input-box">
+                <input type="text" id="username" class="username" minlength="4" placeholder="Enter username" required>
+                <i class='bx bxs-user'></i>
+            </div>
+            
+            <div class="input-box">
+                <input type="tel" id="phone" class="username" placeholder="Enter phone number" required>
+                <i class='bx bxs-phone'></i>
+            </div>
+            
+            <div class="input-box">
+                <input type="email" id="email" class="username" placeholder="Enter email" required>
+                <i class='bx bxs-envelope'></i>
+            </div>
+            
+            <div class="input-box">
+                <input type="password" id="password" class="username" placeholder="Enter password" required>
+                <i class='bx bxs-lock-alt'></i>
+            </div>
+            
+            <div class="input-box">
+                <input type="date" id="birthday" required>
+                <i class='bx bxs-calendar'></i>
+            </div>
+            
+            <div class="gender-box">
+                <label>Gender</label>
+                <div class="gender-options">
+                    <label>
+                        <input type="radio" name="option" value="male" required>
+                        Male
+                    </label>
+                    <label>
+                        <input type="radio" name="option" value="female">
+                        Female
+                    </label>
+                    <label>
+                        <input type="radio" name="option" value="others">
+                        Others
+                    </label>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn">Sign Up</button>
+            <div class="login-link">
+                <p>Already have an account? <a href="form.html">Login</a></p>
+            </div>
+        </form>
+    </div>
+    <script src="js/auth.js"></script>
+</body>
+</html>

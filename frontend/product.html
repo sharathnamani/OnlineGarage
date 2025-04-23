@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='sellproduct.css' rel='stylesheet'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>Sell Your Product - Online Garage</title>
+</head>
+<body>
+    <div class="logo-container">
+        <a href="garage2.html">
+            <img src="images/garage.png" alt="Garage Logo" class="logo" id="logo1">
+        </a>
+    </div>
+    
+    <header>
+        <div class="header-content">
+            <div class="header-top">
+                <h1>Online Garage</h1>
+            </div>
+            <div class="header-bottom">
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="garage2.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="product.html" class="active"><i class="fas fa-tag"></i> Sell</a></li>
+                        <li><a href="my-orders.html"><i class="fas fa-box"></i> My Orders</a></li>
+                        <li><a href="#" id="cart-link"><i class="fas fa-shopping-cart"></i> Cart (0)</a></li>
+                        <li id="authLink">
+                            <a href="login.html"><i class="fas fa-user"></i> Login</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    
+    <div class="wrapper">
+        <form action="#" method="POST" enctype="multipart/form-data" id="mainForm">
+         <h1>Sell Your Product</h1>   
+            <!-- Product Information Section -->
+            <div class="form-section">
+                <h2>Add Your Product/Item</h2>
+                
+                <label for="productName">Product Name</label>
+                <input type="text" id="productName" name="productName" placeholder="Enter product name" required>
+                
+                <label for="productCategory">Category</label>
+                <select id="productCategory" name="productCategory" required>
+                    <option value="">Select a category</option>
+                    <option value="tools">Tools</option>
+                    <option value="engine_parts">Engine Parts</option>
+                    <option value="electrical">Electrical Components</option>
+                    <option value="body_parts">Body Parts</option>
+                    <option value="accessories">Accessories</option>
+                    <option value="other">Other</option>
+                </select>
+                
+                <label for="productPrice">Price (₹)</label>
+                <input type="number" id="productPrice" name="productPrice" min="0" step="0.01" placeholder="0.00" required>
+                
+                <label for="productQuantity">Quantity Available</label>
+                <input type="number" id="productQuantity" name="productQuantity" min="0" placeholder="0" required>
+                
+                <label for="productDescription">Description</label>
+                <textarea id="productDescription" name="productDescription" rows="3" placeholder="Enter product description"></textarea>
+                
+                <label for="productImage">Upload Product Image</label>
+                <input type="file" id="productImage" name="productImage" accept="image/*" required>
+                <img id="imagePreview" class="image-preview" alt="Product image preview">
+            </div>
+            
+            <button type="submit">Add Product</button>
+            <button type="reset">Reset Form</button>
+        </form>
+    </div>
+
+    <script src="garage2.js"></script>
+    <script>
+        // Image preview functionality
+        document.getElementById('productImage').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('imagePreview');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Form submission handling
+        document.getElementById('mainForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Here you would typically send the data to your server
+            // For now, we'll just log it to the console
+            const formData = new FormData(this);
+            const formObject = {};
+            
+            formData.forEach((value, key) => {
+                formObject[key] = value;
+            });
+            
+            console.log('Form data:', formObject);
+            
+            // In a real application, you would send this to your backend:
+            // fetch('/api/register', {
+            //     method: 'POST',
+            //     body: formData
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     console.log('Success:', data);
+            //     alert('Registration successful!');
+            // })
+            // .catch(error => {
+            //     console.error('Error:', error);
+            //     alert('Registration failed. Please try again.');
+            // });
+            
+            alert('Form submitted! Check console for data.');
+        });
+        
+        // Check auth status when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            const API_URL = 'http://localhost:3000';
+            
+            // Function to update auth navigation
+            function updateAuthNav() {
+                const authLink = document.getElementById('authLink');
+                const user = localStorage.getItem('user');
+                
+                if (user) {
+                    // User is logged in, show logout link
+                    authLink.innerHTML = `
+                        <a href="#" onclick="return handleLogout()">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    `;
+                } else {
+                    // User is not logged in, show login link
+                    authLink.innerHTML = `
+                        <a href="login.html">
+                            <i class="fas fa-user"></i> Login
+                        </a>
+                    `;
+                }
+            }
+            
+            // Handle logout
+            window.handleLogout = function() {
+                fetch(`${API_URL}/logout`, {
+                    method: 'POST',
+                    credentials: 'include',
+                    mode: 'cors'
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Logout successful');
+                    localStorage.removeItem('user');
+                    window.location.href = 'login.html';
+                })
+                .catch(error => {
+                    console.error('Logout error:', error);
+                    // Even if the server request fails, clear local storage and redirect
+                    localStorage.removeItem('user');
+                    window.location.href = 'login.html';
+                });
+                return false; // Prevent default link behavior
+            }
+            
+            updateAuthNav();
+        });
+    </script>
+</body>
+</html>

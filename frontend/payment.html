@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment - Online Garage</title>
+    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="payment.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Payment Animation Styles */
+        .payment-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .payment-animation-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #34c5d8;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 10px auto;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .checkmark-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 5px solid #4CAF50;
+            margin: 0 auto;
+            position: relative;
+            animation: pop 0.3s ease-out forwards;
+        }
+
+        .checkmark {
+            width: 25px;
+            height: 50px;
+            border-right: 5px solid #4CAF50;
+            border-bottom: 5px solid #4CAF50;
+            transform: rotate(45deg);
+            position: absolute;
+            top: 20px;
+            left: 34px;
+            animation: draw 0.5s ease forwards;
+        }
+
+        @keyframes pop {
+            from { transform: scale(0); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes draw {
+            from {
+                height: 0;
+                width: 0;
+                opacity: 0;
+            }
+            to {
+                height: 50px;
+                width: 25px;
+                opacity: 1;
+            }
+        }
+
+        .success-text {
+            margin-top: 20px;
+            color: #4CAF50;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .success-message {
+            margin-top: 10px;
+            color: #333;
+            font-size: 16px;
+        }
+
+        .redirect-message {
+            margin-top: 5px;
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+        }
+
+        .processing-text {
+            margin-top: 10px;
+            color: #333;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+        <img src="images/garage.png" alt="Online Garage Logo" id="logo1">
+    </div>
+    
+    <header>
+        <div class="header-content">
+            <div class="header-top">
+                <h1>Online Garage</h1>
+            </div>
+            <div class="header-bottom">
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="garage2.html"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="product.html"><i class="fas fa-tag"></i> Sell</a></li>
+                        <li><a href="my-orders.html"><i class="fas fa-box"></i> My Orders</a></li>
+                        <li><a href="#" id="cart-link"><i class="fas fa-shopping-cart"></i> Cart (0)</a></li>
+                        <li id="authLink">
+                            <a href="login.html"><i class="fas fa-user"></i> Login</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Payment Animation Overlay -->
+    <div class="payment-overlay" id="payment-overlay">
+        <div class="payment-animation-container">
+            <div id="processing-animation">
+                <div class="spinner"></div>
+                <div class="processing-text">Processing Payment...</div>
+            </div>
+            <div id="success-animation" style="display: none;">
+                <div class="checkmark-circle">
+                    <div class="checkmark"></div>
+                </div>
+                <div class="success-text">Payment Successful!</div>
+                <div class="success-message">Your orders have been placed successfully.</div>
+                <div class="redirect-message">Redirecting to your orders...</div>
+            </div>
+        </div>
+    </div>
+
+    <main class="payment-container">
+        <div class="payment-header">
+            <h1>Payment Options</h1>
+            <p>Select your preferred payment method</p>
+        </div>
+
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <div class="cart-items-container">
+                <h3>Cart Items</h3>
+                <div id="cart-items-list">
+                    <!-- Cart items will be displayed here -->
+                </div>
+            </div>
+            <div class="order-details">
+                <div class="order-item">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">₹0.00</span>
+                </div>
+                <div class="order-item">
+                    <span>Shipping:</span>
+                    <span id="shipping">₹0.00</span>
+                </div>
+                <div class="order-item total">
+                    <span>Total:</span>
+                    <span id="total">₹0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-methods">
+            <h2>Payment Methods</h2>
+            
+            <div class="payment-option" id="upi-option">
+                <input type="radio" name="payment" id="upi" value="upi">
+                <label for="upi">
+                    <i class="fas fa-mobile-alt"></i>
+                    <span>UPI</span>
+                </label>
+                <div class="payment-details" id="upi-details">
+                    <div class="upi-options">
+                        <div class="upi-option">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Google_Pay_%28GPay%29_Logo_%282018-2020%29.svg/1200px-Google_Pay_%28GPay%29_Logo_%282018-2020%29.svg.png" alt="Google Pay">
+                            <span>Google Pay</span>
+                        </div>
+                        <div class="upi-option">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/PhonePe_Logo.svg/1200px-PhonePe_Logo.svg.png" alt="PhonePe">
+                            <span>PhonePe</span>
+                        </div>
+                        <div class="upi-option">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/UPI-Logo-vector.svg/1200px-UPI-Logo-vector.svg.png" alt="Other UPI">
+                            <span>Other UPI</span>
+                        </div>
+                    </div>
+                    <div class="upi-input">
+                        <input type="text" placeholder="Enter UPI ID" id="upi-id">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-option" id="card-option">
+                <input type="radio" name="payment" id="card" value="card">
+                <label for="card">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Credit/Debit Card</span>
+                </label>
+                <div class="payment-details" id="card-details">
+                    <div class="card-input">
+                        <input type="text" placeholder="Card Number" id="card-number">
+                        <div class="card-row">
+                            <input type="text" placeholder="MM/YY" id="card-expiry">
+                            <input type="text" placeholder="CVV" id="card-cvv">
+                        </div>
+                        <input type="text" placeholder="Card Holder Name" id="card-name">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-option" id="netbanking-option">
+                <input type="radio" name="payment" id="netbanking" value="netbanking">
+                <label for="netbanking">
+                    <i class="fas fa-university"></i>
+                    <span>Net Banking</span>
+                </label>
+                <div class="payment-details" id="netbanking-details">
+                    <div class="bank-options">
+                        <div class="bank-option">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/State_Bank_of_India_logo.svg/1200px-State_Bank_of_India_logo.svg.png" alt="SBI">
+                            <span>State Bank of India</span>
+                        </div>
+                        <div class="bank-option">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/HDFC_Bank_logo.svg/1200px-HDFC_Bank_logo.svg.png" alt="HDFC">
+                            <span>HDFC Bank</span>
+                        </div>
+                        <div class="bank-option">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/ICICI_Bank_logo.svg/1200px-ICICI_Bank_logo.svg.png" alt="ICICI">
+                            <span>ICICI Bank</span>
+                        </div>
+                        <div class="bank-option">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Axis_Bank_logo.svg/1200px-Axis_Bank_logo.svg.png" alt="Axis">
+                            <span>Axis Bank</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="payment-option" id="cod-option">
+                <input type="radio" name="payment" id="cod" value="cod">
+                <label for="cod">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Cash on Delivery</span>
+                </label>
+                <div class="payment-details" id="cod-details">
+                    <p>Pay with cash upon delivery. Additional ₹50 charge may apply.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="payment-actions">
+            <button id="back-to-cart" class="secondary-btn">Back to Cart</button>
+            <button id="pay-now" class="primary-btn">Pay Now</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <ul>
+                    <li><a href="#">Our Story</a></li>
+                    <li><a href="#">Team</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Shipping Policy</a></li>
+                    <li><a href="#">Returns & Exchanges</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Connect With Us</h3>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+                <div class="newsletter">
+                    <h4>Subscribe to our newsletter</h4>
+                    <div class="newsletter-form">
+                        <input type="email" placeholder="Your email address">
+                        <button>Subscribe</button>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Payment Methods</h3>
+                <div class="payment-methods">
+                    <i class="fab fa-cc-visa"></i>
+                    <i class="fab fa-cc-mastercard"></i>
+                    <i class="fab fa-cc-amex"></i>
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 Online Garage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Get cart data from localStorage
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update order summary
+            const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+            
+            // Display cart items
+            const cartItemsList = document.getElementById('cart-items-list');
+            if (cartItems.length === 0) {
+                cartItemsList.innerHTML = '<p>Your cart is empty</p>';
+            } else {
+                cartItemsList.innerHTML = '';
+                cartItems.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.className = 'cart-item';
+                    itemElement.innerHTML = `
+                        <div class="item-image">
+                            <img src="${item.image}" alt="${item.name}">
+                        </div>
+                        <div class="item-details">
+                            <div class="item-name">${item.name}</div>
+                            <div class="item-price">₹${item.price.toFixed(2)}</div>
+                            <div class="item-quantity">Quantity: ${item.quantity}</div>
+                        </div>
+                        <div class="item-total">
+                            ₹${(item.price * item.quantity).toFixed(2)}
+                        </div>
+                    `;
+                    cartItemsList.appendChild(itemElement);
+                });
+            }
+            
+            const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+            const shipping = subtotal > 0 ? 50 : 0;
+            const total = subtotal + shipping;
+            
+            document.getElementById('subtotal').textContent = `₹${subtotal.toFixed(2)}`;
+            document.getElementById('shipping').textContent = `₹${shipping.toFixed(2)}`;
+            document.getElementById('total').textContent = `₹${total.toFixed(2)}`;
+            
+            // Payment method selection
+            const paymentOptions = document.querySelectorAll('input[name="payment"]');
+            const paymentDetails = document.querySelectorAll('.payment-details');
+            
+            paymentOptions.forEach(option => {
+                option.addEventListener('change', function() {
+                    paymentDetails.forEach(detail => {
+                        detail.style.display = 'none';
+                    });
+                    
+                    if (this.checked) {
+                        const selectedDetail = document.getElementById(`${this.value}-details`);
+                        if (selectedDetail) {
+                            selectedDetail.style.display = 'block';
+                        }
+                    }
+                });
+            });
+            
+            // Back to cart button
+            document.getElementById('back-to-cart').addEventListener('click', function() {
+                window.location.href = 'garage2.html';
+            });
+            
+            // Pay now button with animation
+            document.getElementById('pay-now').addEventListener('click', function() {
+                const selectedPayment = document.querySelector('input[name="payment"]:checked');
+                
+                if (!selectedPayment) {
+                    alert('Please select a payment method');
+                    return;
+                }
+                
+                // Show payment processing animation
+                document.getElementById('payment-overlay').style.display = 'flex';
+                document.getElementById('processing-animation').style.display = 'block';
+                document.getElementById('success-animation').style.display = 'none';
+                
+                // Simulate payment processing
+                setTimeout(() => {
+                    // Hide processing animation and show success animation
+                    document.getElementById('processing-animation').style.display = 'none';
+                    document.getElementById('success-animation').style.display = 'block';
+                    
+                    // After showing success animation, clear cart and redirect
+                    setTimeout(() => {
+                        // Save the order to localStorage
+                        const cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
+                        const subtotal = cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
+                        const shipping = subtotal > 0 ? 50 : 0;
+                        const total = subtotal + shipping;
+                        
+                        // Create a new order object
+                        const newOrder = {
+                            id: 'ORD' + Date.now().toString().substr(-6),
+                            date: new Date().toISOString(),
+                            items: cartItems,
+                            total: total,
+                            status: 'Orders Placed'
+                        };
+                        
+                        // Get user-specific orders key
+                        const user = JSON.parse(localStorage.getItem('user')) || null;
+                        const ordersKey = user ? `orders_${user._id}` : 'orders';
+                        
+                        // Get existing orders or initialize empty array
+                        const existingOrders = JSON.parse(localStorage.getItem(ordersKey)) || [];
+                        
+                        // Add the new order to the beginning of the array
+                        existingOrders.unshift(newOrder);
+                        
+                        // Save updated orders back to localStorage
+                        localStorage.setItem(ordersKey, JSON.stringify(existingOrders));
+                        
+                        // Clear the cart - ensure it's completely cleared
+                        localStorage.removeItem('cartItems');
+                        
+                        // Clear user-specific cart
+                        if (user) {
+                            localStorage.removeItem(`cart_${user._id}`);
+                        } else {
+                            localStorage.removeItem('cart');
+                        }
+                        
+                        // Force clear any other cart-related data
+                        localStorage.setItem('cartItems', JSON.stringify([]));
+                        
+                        // Redirect to my-orders page
+                        window.location.href = 'my-orders.html';
+                    }, 1500);
+                }, 2000);
+            });
+            
+            // Check if user is logged in
+            const token = localStorage.getItem('token');
+            const authLink = document.getElementById('authLink');
+            
+            if (token) {
+                authLink.innerHTML = '<i class="material-icons">logout</i>Logout';
+                authLink.href = '#';
+                authLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    handleLogout();
+                });
+            } else {
+                authLink.innerHTML = '<i class="material-icons">person</i>Login';
+                authLink.href = 'login.html';
+            }
+        });
+        
+        // Logout function
+        function handleLogout() {
+            const API_URL = 'http://localhost:5000/api/users/logout';
+            
+            fetch(API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('user');
+                    window.location.href = 'login.html';
+                } else {
+                    console.error('Logout failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error during logout:', error);
+                // Still redirect to login page even if there's an error
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
+                window.location.href = 'login.html';
+            });
+        }
+    </script>
+</body>
+</html> 
